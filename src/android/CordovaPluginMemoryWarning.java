@@ -49,7 +49,7 @@ public class CordovaPluginMemoryWarning extends CordovaPlugin {
      * @return 				A PluginResult object with a status and message.
      */
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("checkMemoryUsage")) {
+        if (action.equals("isMemoryUsageUnsafe")) {
             cordova.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -60,12 +60,12 @@ public class CordovaPluginMemoryWarning extends CordovaPlugin {
                         activityManager.getMemoryInfo(memoryInfo);
 
                         if (memoryInfo.lowMemory) {
-                            LOG.d("CordovaPluginMemoryWarning"", "Low memory");
+                            LOG.d("CordovaPluginMemoryWarning", "Low memory");
                         }
 
                         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, memoryInfo.lowMemory));
                     } catch (Exception e) {
-                        LOG.e("CordovaPluginMemoryWarning"", "Error occured while checking memory usage", e);
+                        LOG.e("CordovaPluginMemoryWarning", "Error occured while checking memory usage", e);
                         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION, "Could not check memory usage"));
                     }
                 }

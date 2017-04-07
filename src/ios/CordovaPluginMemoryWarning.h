@@ -21,6 +21,6 @@
 
 @interface CordovaPluginMemoryWarning : CDVPlugin {}
 
-- (void)checkMemoryUsage:(CDVInvokedUrlCommand*)command;
+- (void)isMemoryUsageUnsafe:(CDVInvokedUrlCommand*)command;
 
 @end

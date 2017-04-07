@@ -10,7 +10,8 @@ document.addEventListener('memorywarning', function () {
     // release memory
 });
 
-// checkMemoryUsage method does nothing on iOS
+// because iOS has app specific memory warnings
+// isMemoryUsageUnsafe method always returns false on iOS
 ```
 
 ## Usage Android
@@ -20,8 +21,8 @@ document.addEventListener('memorywarning', function () {
 // so you should manually check memory state before performing memory intensive operations
 // executes a callback that resolves with boolean true when memory usage is at an unsafe level
 // optionally pass a second callback for error handling
-cordova.plugins.CordovaPluginMemoryWarning.checkMemoryUsage(function (isMemoryUsageUnsafe) {
-    if (isMemoryUsageUnsafe) {
+cordova.plugins.CordovaPluginMemoryWarning.isMemoryUsageUnsafe(function (result) {
+    if (result) {
         // release memory
     }
 }, function (error) {

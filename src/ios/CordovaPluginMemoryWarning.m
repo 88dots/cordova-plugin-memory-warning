@@ -27,7 +27,7 @@
 
 }
 
-- (void)checkMemoryUsage:(CDVInvokedUrlCommand*)command
+- (void)isMemoryUsageUnsafe:(CDVInvokedUrlCommand*)command
 {
     // no need to check memory usage on iOS
     // onMemoryWarning will be triggered when iOS determines app is getting close to memory limit
