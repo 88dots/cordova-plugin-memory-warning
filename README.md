@@ -6,7 +6,7 @@ Cordova plugin to dispatch memory warnings to javascript.
 
 ```javascript
 // listen for 'memorywarning' events
-window.addEventListener('memorywarning', function () {
+document.addEventListener('memorywarning', function () {
     // release memory
 });
 
@@ -27,7 +27,7 @@ cordova.plugins.CordovaPluginMemoryWarning.checkMemoryUsage().then(function (isM
 
 // android does have system level memory warnings
 // so you should also listen for 'memorywarning' events
-window.addEventListener('memorywarning', function () {
+document.addEventListener('memorywarning', function () {
     // release memory
 });
 ```
