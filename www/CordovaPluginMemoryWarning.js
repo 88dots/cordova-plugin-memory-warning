@@ -19,6 +19,6 @@
 
 var exec = require('cordova/exec');
 
-exports.checkMemoryUsage = function() {
-    exec(null, null, "CordovaPluginMemoryWarning", "checkMemoryUsage");
+exports.checkMemoryUsage = function(success, fail) {
+    exec(success, fail, "CordovaPluginMemoryWarning", "checkMemoryUsage");
 };

@@ -18,11 +18,14 @@ document.addEventListener('memorywarning', function () {
 ```javascript
 // android does not have app specific memory warnings
 // so you should manually check memory state before performing memory intensive operations
-// returns a promise that resolves with boolean true when memory usage is at an unsafe level
-cordova.plugins.CordovaPluginMemoryWarning.checkMemoryUsage().then(function (isMemoryUsageUnsafe) {
+// executes a callback that resolves with boolean true when memory usage is at an unsafe level
+// optionally pass a second callback for error handling
+cordova.plugins.CordovaPluginMemoryWarning.checkMemoryUsage(function (isMemoryUsageUnsafe) {
     if (isMemoryUsageUnsafe) {
         // release memory
     }
+}, function (error) {
+    // handle errors
 });
 
 // android does have system level memory warnings
