@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-memory-warning" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<name>CordovaPluginMemoryWarning</name>
+	<description>Cordova Memory Warning Plugin</description>
+	<license>Apache 2.0</license>
+	<keywords>cordova,memory,warning</keywords>
+	<repo>https://github.com/88dots/cordova-plugin-memory-warning.git</repo>
+	<issue>https://github.com/88dots/cordova-plugin-memory-warning/issues</issue>
+
+	<js-module name="CordovaPluginMemoryWarning" src="www/CordovaPluginMemoryWarning.js">
+		<clobbers target="cordova.plugins.CordovaPluginMemoryWarning" />
+	</js-module>
+
+	<!-- android -->
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="Media" >
+				<param name="android-package" value="com.apache.cordova.memory.CordovaPluginMemoryWarning"/>
+			</feature>
+		</config-file>
+		<source-file src="src/android/CordovaPluginMemoryWarning.java" target-dir="src/org/apache/cordova/memory" />
+	</platform>
+
+	<!-- iOS -->
+	<platform name="ios">
+		<config-file target="config.xml" parent="/*">
+			<feature name="CordovaPluginMemoryWarning">
+				<param name="ios-package" value="CordovaPluginMemoryWarning" />
+			</feature>
+		</config-file>
+		<header-file src="src/ios/CordovaPluginMemoryWarning.h" />
+		<source-file src="src/ios/CordovaPluginMemoryWarning.m" />
+	</platform>
+
+</plugin>
