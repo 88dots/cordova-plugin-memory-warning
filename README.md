@@ -16,7 +16,7 @@ document.addEventListener('memorywarning', function () {
 
 ## Usage Android
 
-__WARNING:__ on Android, the app's MainActivity.java file is replaced by one with hooks into Android memory warning events!
+__NOTE:__ on Android, your app's MainActivity.java file will be modified to add hooks into Android memory warning events!
 
 ```javascript
 // listen for 'memorywarning' events

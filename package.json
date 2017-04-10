@@ -1,0 +1,27 @@
+{
+  "name": "cordova-plugin-memory-warning",
+  "version": "1.0.0",
+  "description": "Cordova Memory Warning Plugin",
+  "types": "./types/index.d.ts",
+  "cordova": {
+    "id": "cordova-plugin-memory-warning",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/88dots/cordova-plugin-memory-warning"
+  },
+  "keywords": [
+    "cordova",
+    "memory",
+    "warning",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Counterplay Games",
+  "license": "MIT"
+}

@@ -23,7 +23,9 @@
 
 		<source-file src="src/android/CordovaPluginMemoryWarning.java" target-dir="src/com/counterplay/memory" />
 
-		<hook type="before_build" src="scripts/hook-before-build.js" />
+		<hook type="before_build" src="scripts/android-hook-before-build.js" />
+		<!-- "cordova run" does not fire build hooks, see https://issues.apache.org/jira/browse/CB-8287 -->
+		<hook type="before_run" src="scripts/android-hook-before-build.js" />
 	</platform>
 
 	<!-- iOS -->
