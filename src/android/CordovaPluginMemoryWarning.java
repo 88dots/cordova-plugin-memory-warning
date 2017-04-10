@@ -21,34 +21,11 @@ public class CordovaPluginMemoryWarning extends CordovaPlugin {
     private static final String TAG = "CordovaPluginMemoryWarning";
     private ActivityManager activityManager;
 
-    /**
-     * Constructor.
-     */
-    public CordovaPluginMemoryWarning() {
-        Activity activity = cordova.getActivity();
-
-        // create memory warning activity to listen for system memory events
-        Context context = activity.getApplicationContext();
-        Intent memoryIntent = new Intent(context, CordovaPluginMemoryWarningActivity.class);
-        activity.startActivity(memoryIntent);
-
-        // create activity manager to request memory state from system
-        activityManager = (ActivityManager) activity.getSystemService(Activity.ACTIVITY_SERVICE);
-    }
-
-    /**
-     * Destroyed.
-     */
-    public void onDestroy() {
-        // TODO: is there any need to explicitly stop memory activity?
-    }
-
-    /**
-     * Destroy on navigate.
-     */
     @Override
-    public void onReset() {
-        onDestroy();
+    protected void pluginInitialize() {
+        // create activity manager to request memory state from system
+        Activity activity = cordova.getActivity();
+        activityManager = (ActivityManager) activity.getSystemService(Activity.ACTIVITY_SERVICE);
     }
 
     /**

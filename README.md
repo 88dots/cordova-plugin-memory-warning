@@ -16,9 +16,18 @@ document.addEventListener('memorywarning', function () {
 
 ## Usage Android
 
+__WARNING:__ on Android, the app's MainActivity.java file is replaced by one with hooks into Android memory warning events!
+
 ```javascript
-// android does not have app specific memory warnings
-// so you should manually check memory state before performing memory intensive operations
+// listen for 'memorywarning' events
+// on android these are only dispatched for system level memory pressure
+// see below for app specific memory pressure handling
+document.addEventListener('memorywarning', function () {
+    // release memory
+});
+
+// because android does not have app specific memory warnings
+// you should manually check memory state before performing memory intensive operations
 // executes a callback that resolves with boolean true when memory usage is at an unsafe level
 // optionally pass a second callback for error handling
 cordova.plugins.CordovaPluginMemoryWarning.isMemoryUsageUnsafe(function (result) {
@@ -27,11 +36,5 @@ cordova.plugins.CordovaPluginMemoryWarning.isMemoryUsageUnsafe(function (result)
     }
 }, function (error) {
     // handle errors
-});
-
-// android does have system level memory warnings
-// so you should also listen for 'memorywarning' events
-document.addEventListener('memorywarning', function () {
-    // release memory
 });
 ```

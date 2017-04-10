@@ -17,10 +17,13 @@
 		<config-file target="res/xml/config.xml" parent="/*">
 			<feature name="CordovaPluginMemoryWarning" >
 				<param name="android-package" value="com.counterplay.memory.CordovaPluginMemoryWarning"/>
+				<param name="onload" value="true" />
 			</feature>
 		</config-file>
+
 		<source-file src="src/android/CordovaPluginMemoryWarning.java" target-dir="src/com/counterplay/memory" />
-		<source-file src="src/android/CordovaPluginMemoryWarningActivity.java" target-dir="src/com/counterplay/memory" />
+
+		<hook type="before_build" src="scripts/hook-before-build.js" />
 	</platform>
 
 	<!-- iOS -->
@@ -28,8 +31,10 @@
 		<config-file target="config.xml" parent="/*">
 			<feature name="CordovaPluginMemoryWarning">
 				<param name="ios-package" value="CordovaPluginMemoryWarning" />
+				<param name="onload" value="true" />
 			</feature>
 		</config-file>
+
 		<header-file src="src/ios/CordovaPluginMemoryWarning.h" />
 		<source-file src="src/ios/CordovaPluginMemoryWarning.m" />
 	</platform>
