@@ -53,7 +53,7 @@ module.exports = function(context) {
 			wasDataModified = true
 			const onLowMemoryBlock = [
 				indent + '@Override',
-				indent + 'public void onTrimMemory(level) {',
+				indent + 'public void onTrimMemory(int level) {',
 				indent + indent + 'LOG.d("MemoryWarning", "onTrimMemory", level);',
 				indent + indent + 'this.appView.loadUrl("javascript:cordova.fireDocumentEvent(\'memorywarning\');");',
 				indent + '}',
