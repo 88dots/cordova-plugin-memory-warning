@@ -1,4 +1,4 @@
-package org.apache.cordova.memory;
+package com.counterplay.memory;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;

@@ -1,4 +1,4 @@
-package org.apache.cordova.memory;
+package com.counterplay.memory;
 
 import android.content.ComponentCallbacks2;
 import android.content.res.Configuration;

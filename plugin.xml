@@ -3,7 +3,7 @@
 
 	<name>CordovaPluginMemoryWarning</name>
 	<description>Cordova Memory Warning Plugin</description>
-	<license>Apache 2.0</license>
+	<license>MIT</license>
 	<keywords>cordova,memory,warning</keywords>
 	<repo>https://github.com/88dots/cordova-plugin-memory-warning.git</repo>
 	<issue>https://github.com/88dots/cordova-plugin-memory-warning/issues</issue>
@@ -16,11 +16,11 @@
 	<platform name="android">
 		<config-file target="res/xml/config.xml" parent="/*">
 			<feature name="CordovaPluginMemoryWarning" >
-				<param name="android-package" value="com.apache.cordova.memory.CordovaPluginMemoryWarning"/>
+				<param name="android-package" value="com.counterplay.memory.CordovaPluginMemoryWarning"/>
 			</feature>
 		</config-file>
-		<source-file src="src/android/CordovaPluginMemoryWarning.java" target-dir="src/org/apache/cordova/memory" />
-		<source-file src="src/android/CordovaPluginMemoryWarningActivity.java" target-dir="src/org/apache/cordova/memory" />
+		<source-file src="src/android/CordovaPluginMemoryWarning.java" target-dir="src/com/counterplay/memory" />
+		<source-file src="src/android/CordovaPluginMemoryWarningActivity.java" target-dir="src/com/counterplay/memory" />
 	</platform>
 
 	<!-- iOS -->
