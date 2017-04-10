@@ -15,7 +15,7 @@
 	<!-- android -->
 	<platform name="android">
 		<config-file target="res/xml/config.xml" parent="/*">
-			<feature name="Memory" >
+			<feature name="CordovaPluginMemoryWarning" >
 				<param name="android-package" value="com.apache.cordova.memory.CordovaPluginMemoryWarning"/>
 			</feature>
 		</config-file>

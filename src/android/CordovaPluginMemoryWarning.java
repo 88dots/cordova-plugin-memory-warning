@@ -13,20 +13,27 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.MemoryInfo;
 import android.os.Build;
-
-import MemoryActivity;
+import android.content.Context;
+import android.content.Intent;
 
 public class CordovaPluginMemoryWarning extends CordovaPlugin {
 
-    private Intent memoryIntent;
+    private static final String TAG = "CordovaPluginMemoryWarning";
+    private ActivityManager activityManager;
 
     /**
      * Constructor.
      */
     public CordovaPluginMemoryWarning() {
-        Context context = cordova.getActivity().getApplicationContext();
-        this.memoryIntent = new Intent(context, CordovaPluginMemoryWarningActivity.class);
-        cordova.getActivity().startActivity(this.memoryIntent);
+        Activity activity = cordova.getActivity();
+
+        // create memory warning activity to listen for system memory events
+        Context context = activity.getApplicationContext();
+        Intent memoryIntent = new Intent(context, CordovaPluginMemoryWarningActivity.class);
+        activity.startActivity(memoryIntent);
+
+        // create activity manager to request memory state from system
+        activityManager = (ActivityManager) activity.getSystemService(Activity.ACTIVITY_SERVICE);
     }
 
     /**
@@ -51,24 +58,22 @@ public class CordovaPluginMemoryWarning extends CordovaPlugin {
      * @param callbackContext		The callback context used when calling back into JavaScript.
      * @return 				A PluginResult object with a status and message.
      */
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("isMemoryUsageUnsafe")) {
             cordova.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        Activity activity = cordova.getActivity();
-                        ActivityManager activityManager = (ActivityManager) activity.getSystemService(Activity.ACTIVITY_SERVICE);
-                        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+                        MemoryInfo memoryInfo = new MemoryInfo();
                         activityManager.getMemoryInfo(memoryInfo);
 
                         if (memoryInfo.lowMemory) {
-                            LOG.d("CordovaPluginMemoryWarning", "Low memory");
+                            LOG.d(TAG, "Low memory");
                         }
 
                         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, memoryInfo.lowMemory));
                     } catch (Exception e) {
-                        LOG.e("CordovaPluginMemoryWarning", "Error occured while checking memory usage", e);
+                        LOG.e(TAG, "Error occured while checking memory usage", e);
                         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION, "Could not check memory usage"));
                     }
                 }
