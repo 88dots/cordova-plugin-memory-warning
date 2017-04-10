@@ -30,18 +30,18 @@ module.exports = function(context) {
 		const beforeBlock = modifiedData.slice(0, insertBeforeIndex)
 		const indentBlock = beforeBlock.slice(0, beforeBlock.lastIndexOf("}"))
 		const indentIndex = indentBlock.lastIndexOf("\n")
-		const indent = indentBlock.slice(indentIndex + 1)
+		const i = indentBlock.slice(indentIndex + 1)
 
 		// add "onLowMemory" as needed
 		if (modifiedData.indexOf("onLowMemory") == -1) {
 			console.log('CordovaPluginMemoryWarning -> adding "onLowMemory" hook')
 			wasDataModified = true
 			const onLowMemoryBlock = [
-				indent + '@Override',
-				indent + 'public void onLowMemory() {',
-				indent + indent + 'LOG.d("MemoryWarning", "onLowMemory");',
-				indent + indent + 'this.appView.loadUrl("javascript:cordova.fireDocumentEvent(\'memorywarning\');");',
-				indent + '}',
+				i+'@Override',
+				i+'public void onLowMemory() {',
+				i+i+'LOG.d("MemoryWarning", "onLowMemory");',
+				i+i+'this.appView.loadUrl("javascript:cordova.fireDocumentEvent(\'memorywarning\');");',
+				i+'}',
 				''
 			].join("\n")
 			modifiedData = modifiedData.slice(0, insertBeforeIndex) + onLowMemoryBlock + modifiedData.slice(insertBeforeIndex)
@@ -51,15 +51,28 @@ module.exports = function(context) {
 		if (modifiedData.indexOf("onTrimMemory") == -1) {
 			console.log('CordovaPluginMemoryWarning -> adding "onTrimMemory" hook')
 			wasDataModified = true
-			const onLowMemoryBlock = [
-				indent + '@Override',
-				indent + 'public void onTrimMemory(int level) {',
-				indent + indent + 'LOG.d("MemoryWarning", "onTrimMemory", level);',
-				indent + indent + 'this.appView.loadUrl("javascript:cordova.fireDocumentEvent(\'memorywarning\');");',
-				indent + '}',
+			const onTrimMemoryBlock = [
+				i+'@Override',
+				i+'public void onTrimMemory(int level) {',
+				i+i+'LOG.d("MemoryWarning", "onTrimMemory -> level " + level);',
+				i+i+'switch (level) {',
+				i+i+i+'case ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW:',
+				i+i+i+'case ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL:',
+				i+i+i+'case ComponentCallbacks2.TRIM_MEMORY_BACKGROUND:',
+				i+i+i+'case ComponentCallbacks2.TRIM_MEMORY_MODERATE:',
+				i+i+i+'case ComponentCallbacks2.TRIM_MEMORY_COMPLETE:',
+				i+i+i+i+'this.appView.loadUrl("javascript:cordova.fireDocumentEvent(\'memorywarning\');");',
+				i+i+i+i+'break;',
+				i+i+'}',
+				i+'}',
 				''
 			].join("\n")
-			modifiedData = modifiedData.slice(0, insertBeforeIndex) + onLowMemoryBlock + modifiedData.slice(insertBeforeIndex)
+			modifiedData = modifiedData.slice(0, insertBeforeIndex) + onTrimMemoryBlock + modifiedData.slice(insertBeforeIndex)
+
+			// add import for "ComponentCallbacks2" after all other modifications to preserve insertBeforeIndex
+			const insertImportIndex = modifiedData.indexOf("import")
+			const importBlock = "import android.content.ComponentCallbacks2;\n"
+			modifiedData = modifiedData.slice(0, insertImportIndex) + importBlock + modifiedData.slice(insertImportIndex)
 		}
 
 		// resolve immediately if no modifications needed
